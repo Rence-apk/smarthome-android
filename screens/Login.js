@@ -13,8 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { login } from "../api";
 import axios from "axios";
-import { useAuth } from "../AuthContext";
 const { width, height } = Dimensions.get("window");
+import { storage } from "../checkLogin";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -37,7 +37,8 @@ const Login = () => {
         {
           text: "OK",
           onPress: () => {
-            login();
+            storage.set("isLoggedIn", true);
+            navigation.navigate("Home");
           },
         },
       ]);
@@ -85,9 +86,6 @@ const Login = () => {
             onPress={() => navigation.navigate("Register")}
           >
             <Text style={styles.buttonText}>Register</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.forgotPassword}>Forgot password</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
